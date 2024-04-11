@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"os"
 
+	task "github.com/concourse/oci-build-task"
 	"github.com/sirupsen/logrus"
 	"github.com/u-root/u-root/pkg/termios"
-	task "github.com/concourse/oci-build-task"
 )
 
 func main() {
