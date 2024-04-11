@@ -1,3 +1,0 @@
-[submodule "rootlesskit"]
-	path = rootlesskit
-	url = https://github.com/rootless-containers/rootlesskit
