@@ -1,0 +1,59 @@
+#!/bin/bash
+
+set -e -u
+
+tag=""
+version=""
+
+case $GITHUB_REF in
+  refs/heads/*)
+    tag=$(echo $GITHUB_REF | sed 's|refs/heads/||')
+    ;;
+
+  refs/tags/v[0-9]*)
+    version=$(echo $GITHUB_REF | sed 's|refs/tags/v||')
+    ;;
+
+  refs/tags/*)
+    tag=$(echo $GITHUB_REF | sed 's|refs/tags/||')
+    ;;
+
+  refs/pull/[0-9]*/merge)
+    tag=pr$(echo $GITHUB_REF | sed 's|refs/pull/\([0-9]\+\)/merge|\1|')
+    ;;
+
+  *)
+    tag=$GITHUB_SHA
+    ;;
+esac
+
+if [[ -n "$tag" ]]; then
+  exec /opt/resource/out . <<EOF
+{
+  "source": {
+    "repository": "concourse/oci-build-task",
+    "username": "$DOCKER_USERNAME",
+    "password": "$DOCKER_PASSWORD",
+    "tag": "$tag"
+  },
+  "params": {
+    "image": "./image/image.tar"
+  }
+}
+EOF
+else
+  exec /opt/resource/out . <<EOF
+{
+  "source": {
+    "repository": "concourse/oci-build-task",
+    "username": "$DOCKER_USERNAME",
+    "password": "$DOCKER_PASSWORD"
+  },
+  "params": {
+    "image": "./image/image.tar",
+    "version": "$version",
+    "bump_aliases": true
+  }
+}
+EOF
+fi

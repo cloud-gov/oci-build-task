@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e -u
+
+cd $(dirname $0)/..
+
+export PATH=$PWD/bin:$PATH
+
+. ./scripts/setup-buildkit.sh
+
+go test "$@"

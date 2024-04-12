@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:experimental
 ARG base_image
 
 FROM concourse/golang-builder AS builder
@@ -10,12 +11,12 @@ ENV CGO_ENABLED 0
 RUN go build -o /assets/task ./cmd/task
 RUN go build -o /assets/build ./cmd/build
 
-FROM moby/buildkit:v0.13.1 AS task
+FROM moby/buildkit:v0.11.0 AS task
 COPY --from=builder /assets/task /usr/bin/
 COPY --from=builder /assets/build /usr/bin/
 COPY bin/setup-cgroups /usr/bin/
 
-FROM ${base_image} as base
+FROM $(base_image) as base
 COPY --from=task /usr/bin /usr/bin/
 ENTRYPOINT ["task"]
 
