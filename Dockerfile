@@ -11,13 +11,13 @@ ENV CGO_ENABLED 0
 RUN go build -o /assets/task ./cmd/task
 RUN go build -o /assets/build ./cmd/build
 
-FROM moby/buildkit:v0.13.1 AS task
+FROM ${base_image} AS task
+RUN apt-get install -y wget runc
+RUN wget https://github.com/moby/buildkit/releases/download/v0.13.1/buildkit-v0.13.1.linux-amd64.tar.gz
+RUN tar xvf buildkit-v0.13.1.linux-amd64.tar.gz
 COPY --from=builder /assets/task /usr/bin/
 COPY --from=builder /assets/build /usr/bin/
 COPY bin/setup-cgroups /usr/bin/
+ENTRYPOINT [ "task" ]
 
-FROM ${base_image} as base
-COPY --from=task /usr/bin /usr/bin/
-ENTRYPOINT ["task"]
-
-FROM base
+FROM task
