@@ -15,7 +15,7 @@ FROM ${base_image} AS task
 RUN apt update && apt upgrade -y
 RUN apt-get install -y wget runc
 RUN wget https://github.com/moby/buildkit/releases/download/v0.13.1/buildkit-v0.13.1.linux-amd64.tar.gz
-RUN tar xvf buildkit-v0.13.1.linux-amd64.tar.gz
+RUN tar xvf buildkit-v0.13.1.linux-amd64.tar.gz -C /usr
 COPY --from=builder /assets/task /usr/bin/
 COPY --from=builder /assets/build /usr/bin/
 COPY bin/setup-cgroups /usr/bin/
