@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"testing"
 
-	task "github.com/concourse/oci-build-task"
+	task "github.com/cloud-gov/oci-build-task"
 	"github.com/google/go-containerregistry/pkg/name"
 	"github.com/google/go-containerregistry/pkg/registry"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
