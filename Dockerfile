@@ -1,6 +1,5 @@
 # syntax = docker/dockerfile:experimental
 ARG base_image
-ARG BUILDKIT_VERSION=v0.14.1
 
 FROM concourse/golang-builder AS builder
 WORKDIR /src
@@ -13,6 +12,7 @@ RUN go build -o /assets/task ./cmd/task
 RUN go build -o /assets/build ./cmd/build
 
 FROM ${base_image} AS task
+ARG BUILDKIT_VERSION=v0.14.1
 RUN apt update && apt upgrade -y
 RUN apt-get install -y wget runc
 RUN wget https://github.com/moby/buildkit/releases/download/"${BUILDKIT_VERSION}"/buildkit-"${BUILDKIT_VERSION}".linux-amd64.tar.gz
