@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
-	task "github.com/concourse/oci-build-task"
+	task "github.com/cloud-gov/oci-build-task"
 )
 
 type BuildkitdSuite struct {
