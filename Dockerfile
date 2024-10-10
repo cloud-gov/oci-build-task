@@ -12,7 +12,7 @@ RUN go build -o /assets/task ./cmd/task
 RUN go build -o /assets/build ./cmd/build
 
 FROM ${base_image} AS task
-ARG BUILDKIT_VERSION=v0.15.1
+ARG BUILDKIT_VERSION=v0.16.0
 RUN apt update && apt upgrade -y
 RUN apt-get install -y --no-install-recommends \
     wget \
