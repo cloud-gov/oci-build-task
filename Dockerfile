@@ -10,6 +10,8 @@ COPY . /src
 ENV CGO_ENABLED 0
 RUN go build -o /assets/task ./cmd/task
 RUN go build -o /assets/build ./cmd/build
+#cleanup go cache
+RUN go clean -cache && go clean -modcache
 
 FROM ${base_image} AS task
 ARG BUILDKIT_VERSION=v0.20.1
@@ -22,9 +24,6 @@ RUN tar xvf buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz -C /usr
 COPY --from=builder /assets/task /usr/bin/
 COPY --from=builder /assets/build /usr/bin/
 COPY bin/setup-cgroups /usr/bin/
-
-#cleanup go cache
-RUN go clean -cache && go clean -modcache
 
 ENTRYPOINT ["task"]
 
