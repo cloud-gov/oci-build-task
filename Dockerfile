@@ -25,6 +25,7 @@ RUN tar xvf buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz -C /usr
 COPY --from=builder /assets/task /usr/bin/
 COPY --from=builder /assets/build /usr/bin/
 COPY bin/setup-cgroups /usr/bin/
+RUN apt-get autoremove && apt-get clean
 
 ENTRYPOINT ["task"]
 
