@@ -2,6 +2,7 @@
 ARG base_image
 
 FROM concourse/golang-builder AS builder
+RUN apt update && apt upgrade -y
 WORKDIR /src
 COPY go.mod /src/go.mod
 COPY go.sum /src/go.sum
