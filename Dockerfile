@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:experimental
 ARG base_image
 
-FROM concourse/golang-builder AS builder
+FROM golang AS builder
 RUN apt update && apt upgrade -y
 WORKDIR /src
 COPY go.mod /src/go.mod
