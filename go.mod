@@ -1,6 +1,6 @@
 module github.com/cloud-gov/oci-build-task
 
-go 1.25
+go 1.25.2
 
 require (
 	github.com/BurntSushi/toml v1.5.0
