@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:experimental
 ARG base_image
 
-FROM golang:1.25.2 AS builder
+FROM golang:1.25.5 AS builder
 RUN apt update && apt upgrade -y
 WORKDIR /src
 COPY go.mod /src/go.mod
@@ -15,7 +15,7 @@ RUN go build -o /assets/build ./cmd/build
 RUN go clean -cache && go clean -modcache
 
 FROM ${base_image} AS task
-ARG BUILDKIT_VERSION=v0.25.1
+ARG BUILDKIT_VERSION=v0.26.2
 RUN apt update && apt upgrade -y
 RUN apt-get install -y --no-install-recommends \
     curl crun
