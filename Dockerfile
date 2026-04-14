@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:experimental
 ARG base_image
 
-FROM golang:1.25.5 AS builder
+FROM golang:1.26.2 AS builder
 RUN apt update && apt upgrade -y
 WORKDIR /src
 COPY go.mod /src/go.mod
