@@ -15,7 +15,7 @@ RUN go build -o /assets/build ./cmd/build
 RUN go clean -cache && go clean -modcache
 
 FROM ${base_image} AS task
-ARG BUILDKIT_VERSION=v0.26.3
+ARG BUILDKIT_VERSION=v0.29.0
 RUN apt update && apt upgrade -y
 RUN apt-get install -y --no-install-recommends \
     curl crun
